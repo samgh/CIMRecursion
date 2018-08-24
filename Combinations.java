@@ -68,6 +68,6 @@ public class Combinations {
         combinationsGlobal(new int[]{1,2,3});
         System.out.println(results);
         System.out.println(combinationsPassed(new int[]{1,2,3}));
-        System.out.println(combinationsBuiltUp(new int[]{1,2,3}));
+        System.out.println(combinationsPassed(new int[]{1,2,3,4,5}));
     }
 }
