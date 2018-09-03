@@ -32,6 +32,26 @@ public class Iteration {
         System.out.println(arr[i]);
     }
     
+    public static void printOdd(int[] arr) {
+        printOdd(arr, 0);
+    }
+    
+    private static void printOdd(int[] arr, int i) {
+        if (i == arr.length) return;
+        if (i % 2 == 1) System.out.println(arr[i]);
+        printOdd(arr, i+1);
+    }
+    
+    public static void printOdd2(int[] arr) {
+        printOdd2(arr, 1);
+    }
+    
+    private static void printOdd2(int[] arr, int i) {
+        if (i >= arr.length) return;
+        System.out.println(arr[i]);
+        printOdd2(arr, i+2);
+    }
+    
     public static void main(String[] args) {
         int[] arr = new int[]{1,2,3,4,5};
         printForwardIterative(arr);
@@ -39,5 +59,8 @@ public class Iteration {
         
         printBackwardIterative(arr);
         printBackward(arr);
+        
+        printOdd(arr);
+        printOdd2(arr);
     }
 }

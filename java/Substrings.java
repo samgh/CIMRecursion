@@ -38,7 +38,6 @@ public class Substrings {
     }
     
     private static void substringsRecursive2(String s, int i, int j, List<String> result) {
-        if (i >= j) return;
         if (i >= s.length() || j > s.length()) return;
         
         if (i+1 == j) substringsRecursive2(s, i+1, i+2, result);
