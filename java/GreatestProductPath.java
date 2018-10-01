@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -51,12 +52,44 @@ public class GreatestProductPath {
         greatestProductPath2(matrix, i, j+1, product, result);
     }
     
+    public static int greatestProductPathBuildUp(int[][] matrix) {
+        return greatestProductPathBuildUp(matrix, 0, 0)[0];
+    }
+    
+    private static int[] greatestProductPathBuildUp(int[][] matrix, int i, int j) {
+        if (i >= matrix.length || j >= matrix[0].length) return null;
+        
+        int[] right = greatestProductPathBuildUp(matrix, i+1, j);
+        int[] down = greatestProductPathBuildUp(matrix, i, j+1);
+        
+        if (right == null && down == null) return new int[]{matrix[i][j], matrix[i][j]};
+        
+        int max = Integer.MIN_VALUE;
+        int min = Integer.MAX_VALUE;
+        
+        if (right != null) {
+            max = Math.max(max, Math.max(right[0] * matrix[i][j],
+                                         right[1] * matrix[i][j]));
+            min = Math.min(min, Math.min(right[0] * matrix[i][j],
+                                         right[1] * matrix[i][j]));
+        }
+        
+        if (down != null) {
+            max = Math.max(max, Math.max(down[0] * matrix[i][j],
+                                         down[1] * matrix[i][j]));
+            min = Math.min(min, Math.min(down[0] * matrix[i][j],
+                                         down[1] * matrix[i][j]));
+        }
+        
+        return new int[]{max, min};
+    }
+    
     public static void main(String[] args) {
         int[][] matrix = new int[][]{
             new int[]{1,2,3},
             new int[]{4,5,6},
-            new int[]{-7,8,9}};
+            new int[]{7,8,-9}};
         
-        System.out.println(greatestProductPath2(matrix));
+        System.out.println(greatestProductPathBuildUp(matrix));
     }
 }
