@@ -1,3 +1,33 @@
+/*
+ * Title: All BST Orders
+ * Author: Sam Gavis-Hughson
+ * Date: 10/1/2018
+ * 
+ * A binary search tree is constructed by inserting nodes into a tree in a set 
+ * order. Depending on the order that nodes are inserted, the resulting tree
+ * may be different. Given a BST, write a function to determine all of the ways
+ * you can insert nodes into the BST to get that exact tree
+ * 
+ * eg. 
+ * Input: 
+ *    2
+ *   / \
+ *  1   3
+ *       \
+ *        4
+ * 
+ * Output:
+ * 
+ * 
+ * Given an array of integers, write a function to compute the total number of 
+ * combinations of integers.
+ * 
+ * eg. 
+ * combos({1, 2, 3, 4, 5}) = 32
+ * 
+ * Execution: javac ArrayCombinations.java && java ArrayCombinations
+ */
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -93,15 +123,13 @@ public class AllBSTOrders {
     
     public static void main(String[] args) {
         Node root = new Node();
-        root.val = 5;
+        root.val = 2;
         root.left = new Node();
-        root.left.val = 3;
+        root.left.val = 1;
         root.right = new Node();
-        root.right.val = 8;
-        root.left.left = new Node();
-        root.left.left.val = 2;
-        root.left.right = new Node();
-        root.left.right.val = 4;
+        root.right.val = 3;
+        root.right.right = new Node();
+        root.right.right.val = 4;
         System.out.println(allBSTOrdersDC(root));
         System.out.println(allBSTOrdersOrdering(root));
     }

@@ -82,7 +82,7 @@ public class Combinations {
     public static void main(String[] args) {
         combinationsGlobal(new int[]{1,2,3});
         System.out.println(results);
-        System.out.println(combinationsPassed(new int[]{1,2,3}));
+        System.out.println(combinationsPassed(new int[]{1,2,3,4}));
         System.out.println(combinationsPassed(new int[]{1,2,3,4,5}));
         System.out.println(countCombinations(new int[]{1,2,3}));
     }
