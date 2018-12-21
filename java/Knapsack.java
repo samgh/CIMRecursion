@@ -120,31 +120,33 @@ public class Knapsack {
         return sum;
     }
     
-    public static List<Item> knapsackOptimized(Item[] items, int totalWeight) {
-        List<List<Item>> result = new LinkedList<List<Item>>();
-        result.add(new LinkedList<Item>());
-        knapsackOptimized(items, 0, new LinkedList<Item>(), 0, totalWeight, result, 0, 0);
-        return result.get(0);
+    public static class Result {
+        List<Item> result;
+        int value;
     }
     
-    private static int knapsackOptimized(Item[] items, int i, List<Item> path, int currentWeight,
-                                         int totalWeight, List<List<Item>> result, int currentValue, 
-                                         int maxValue) {
-        if (currentWeight > totalWeight) return 0;
+    public static List<Item> knapsackOptimized(Item[] items, int totalWeight) {
+        Result result = new Result();
+        result.result = new LinkedList<Item>();
+        knapsackOptimized(items, 0, new LinkedList<Item>(), 0, totalWeight, result, 0);
+        return result.result;
+    }
+    
+    private static void knapsackOptimized(Item[] items, int i, List<Item> path, int currentWeight,
+                                         int totalWeight, Result result, int currentValue) {
+        if (currentWeight > totalWeight) return;
         if (i == items.length) {
-            if (currentValue > maxValue) {
-                result.set(0, new LinkedList<Item>(path));
-                return currentValue;
+            if (currentValue > result.value) {
+                result.result = new LinkedList<Item>(path);
+                result.value = currentValue;
             }
-            return maxValue;
+            return;
         }
         
-        maxValue = Math.max(maxValue, knapsackOptimized(items, i+1, path, currentWeight, totalWeight, result, currentValue, maxValue));
+        knapsackOptimized(items, i+1, path, currentWeight, totalWeight, result, currentValue);
         path.add(items[i]);
-        maxValue = Math.max(maxValue, knapsackOptimized(items, i+1, path, currentWeight+items[i].weight, totalWeight, result, currentValue+items[i].value, maxValue));
+        knapsackOptimized(items, i+1, path, currentWeight+items[i].weight, totalWeight, result, currentValue+items[i].value);
         path.remove(path.size() - 1);
-        
-        return maxValue;
     }
     
     public static void main(String[] args) {

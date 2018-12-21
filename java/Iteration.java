@@ -91,6 +91,37 @@ public class Iteration {
         printOddRecursive2(arr, i+2);
     }
     
+    
+    // Recursively sum items in array
+    public static int sumArray1(int[] arr) {
+        return sumArray1(arr, 0);
+    }
+    
+    // Recursive inner function
+    private static int sumArray1(int[] arr, int i) {
+        if (i == arr.length) return 0;
+        return arr[i] + sumArray1(arr, i+1);
+    }
+    
+    // Class for storing result
+    public static class Result {
+        int result;
+    }
+    
+    // Recursively sum items in array using passed variable
+    public static int sumArray2(int[] arr) {
+        Result r = new Result();
+        sumArray2(arr, 0, r);
+        return r.result;
+    }
+    
+    // Recursive inner function
+    public static void sumArray2(int[] arr, int i, Result r) {
+        if (i == arr.length) return;
+        r.result += arr[i];
+        sumArray2(arr, i+1, r);
+    }
+    
     // Test main method
     public static void main(String[] args) {
         int[] arr = new int[]{1,2,3,4,5};
@@ -102,5 +133,8 @@ public class Iteration {
         
         printOddRecursive(arr);
         printOddRecursive2(arr);
+        
+        System.out.println(sumArray1(arr));
+        System.out.println(sumArray2(arr));
     }
 }
