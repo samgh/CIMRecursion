@@ -123,11 +123,16 @@ public class Knapsack {
     public static class Result {
         List<Item> result;
         int value;
+        
+        public Result() {
+            this.result = new LinkedList<Item>();
+            this.value = 0;
+        }
     }
+    
     
     public static List<Item> knapsackOptimized(Item[] items, int totalWeight) {
         Result result = new Result();
-        result.result = new LinkedList<Item>();
         knapsackOptimized(items, 0, new LinkedList<Item>(), 0, totalWeight, result, 0);
         return result.result;
     }
@@ -149,9 +154,33 @@ public class Knapsack {
         path.remove(path.size() - 1);
     }
     
+    public static List<Item> knapsackBuiltUp(Item[] items, int totalWeight) {
+        Result result = knapsackBuiltUp(items, totalWeight, 0);
+        return result.result;
+    }
+    
+    private static Result knapsackBuiltUp(Item[] items, int totalWeight, int i) {
+        if (i == items.length) return new Result();
+        
+        Result exclude = knapsackBuiltUp(items, totalWeight, i+1);
+        
+        if (totalWeight-items[i].weight >= 0) {        
+            Result include = knapsackBuiltUp(items, totalWeight - items[i].weight, i+1);
+            
+            if (include.value + items[i].value > exclude.value) {
+                include.result.add(0, items[i]);
+                include.value += items[i].value;
+                return include;
+            }
+        }
+        
+        return exclude;
+    }
+    
     public static void main(String[] args) {
         System.out.println(knapsackBruteForce(new Item[]{new Item(1,6), new Item(2,10), new Item(3,12)}, 5));
         System.out.println(knapsackOptimized(new Item[]{new Item(1,6), new Item(2,10), new Item(3,12)}, 5));
+        System.out.println(knapsackBuiltUp(new Item[]{new Item(1,6), new Item(2,10), new Item(3,12)}, 5));
     }
     // * items = {(w:1, v:6), (w:2, v:10), (w:3, v:12)}
 
